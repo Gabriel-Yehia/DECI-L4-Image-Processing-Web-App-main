@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image Processing API</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <div class="container">
+    <h1 class="container-header1">Image Processing API</h1>
+    <div class="image-gallery"></div>
+    <div class="resize-form">
+      <br>
+      <form class="first-form">
+        <label for="image-select" class="image-select-title">Select an image:</label>
+        <select id="image-select" name="image"></select>
+        <br>
+        <br>
+        <input type="number" id="width" name="width" placeholder="Select Width" maxlength="4" required />
+        <input type="number" id="height" name="height" placeholder="Select Height" maxlength="4" required />
+        <button type="submit">Resize</button>
+      </form>
+      <div class="resized-url"></div>
+    </div>
+    <div class="upload-form">
+      <h2>Upload a JPG Image</h2>
+      <form>
+        <input type="file" id="fileInput" name="image" accept=".jpg" />
+        <button type="submit">Upload</button>
+      </form>
+      <div class="upload-message"></div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
