@@ -1,16 +1,82 @@
 {
   "parser": "@typescript-eslint/parser",
-  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended", "prettier"],
-  "plugins": ["@typescript-eslint", "prettier"],
+  "extends": [
+    "eslint",
+    "plugin:@typescript-eslint",
+    "prettier",
+    "plugin:@typescript-eslint/recommended",
+    "prettier/react",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript"
+  ],
+  "plugins": [
+    "@typescript-eslint",
+    "prettier",
+    "import"
+  ],
+  "settings": {
+    "import/resolver": {
+      "typescript": {
+        "directory": "./tsconfig.json",
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx"
+        ]
+      },
+      "node": {
+        "extensions": [
+          ".js",
+          ".jsx",
+          ".ts",
+          ".tsx"
+        ]
+      }
+    },
+    "import/extensions": [
+      ".js",
+      ".jsx",
+      ".ts",
+      ".tsx"
+    ],
+    "import/parsers": {
+      "@typescript-eslint/parser": [
+        ".ts",
+        ".tsx"
+      ]
+    }
+  },
   "parserOptions": {
     "ecmaVersion": 2020,
-    "sourceType": "module",
+    "sourceType": "module"
   },
   "rules": {
-    "prettier/prettier": "error",
+    "no-undef": "off",
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ]
   },
   "env": {
     "node": true,
-    "es6": true,
+    "es6": true
   },
+  "overrides": [
+    {
+      "files": [
+        "**/*.ts"
+      ],
+      "parserOptions": {
+        "project": "./tsconfig.json"
+      }
+    }
+  ]
 }
