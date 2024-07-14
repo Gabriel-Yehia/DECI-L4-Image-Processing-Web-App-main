@@ -1,7 +1,7 @@
 {
-  "name": "image-processing-api",
+  "name": "image-processing-web-app-main",
   "version": "1.0.0",
-  "description": "",
+  "description": "Image Processing Web App",
   "main": "index.js",
   "scripts": {
     "build": "tsc --project ./ && npm run copy:assets",
@@ -11,10 +11,11 @@
     "prettier": "prettier --config .prettierrc --write \"src/**/*.ts\"",
     "copy:assets": "cp -r src/images/ build/images"
   },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@eslint/js": "^9.6.0",
+    "@eslint/js": "^9.7.0",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/jasmine": "^5.1.4",
@@ -22,7 +23,7 @@
     "@typescript-eslint/eslint-plugin": "^7.16.0",
     "@typescript-eslint/parser": "^7.16.0",
     "cors": "^2.8.5",
-    "eslint": "^8.57.0",
+    "eslint": "^8.56.0",
     "eslint-config-eslint": "^11.0.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-import-resolver-typescript": "^3.6.1",
@@ -35,7 +36,7 @@
     "jasmine-spec-reporter": "^7.0.0",
     "multer": "^1.4.5-lts.1",
     "nodemon": "^3.1.4",
-    "prettier": "^3.3.2",
+    "prettier": "^3.3.3",
     "supertest": "^7.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.3",
@@ -43,6 +44,7 @@
   },
   "dependencies": {
     "express": "^4.19.2",
+    "flatted": "^3.3.1",
     "sharp": "^0.33.4"
   }
 }
