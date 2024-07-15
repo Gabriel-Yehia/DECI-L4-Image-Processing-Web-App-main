@@ -8,16 +8,17 @@ const uploadMessage = document.querySelector('.upload-message');
 // Fetch available images and display them in the gallery
 async function fetchImages() {
   try {
-    const response = await fetch('http://localhost:8000/images');
+    const response = await fetch('http://localhost:8000/api/images');
     const data = await response.json();
     data.forEach((image) => {
       const img = document.createElement('img');
-      img.src = `http://localhost:8000/images/${image}?w=200&h=200`;
+      img.src = `http://localhost:8000/images/original/${image}`; // Path for original images
       img.alt = image;
       img.addEventListener('click', () => {
         imageSelect.value = image;
       });
       imageGallery.appendChild(img);
+
       const option = document.createElement('option');
       option.value = image;
       option.textContent = image;
@@ -34,8 +35,25 @@ async function handleResize(event) {
   const imageName = imageSelect.value;
   const width = document.querySelector('#width').value;
   const height = document.querySelector('#height').value;
-  const url = `http://localhost:8000/images/${imageName}?w=${width}&h=${height}`;
+
+  // Check if width and height are valid
+  if (!imageName || !width || !height) {
+    alert('Please select an image and enter both width and height.');
+    return;
+  }
+
+  // Construct the URL for the resized image
+  const url = `http://localhost:8000/images/thumbnails/${imageName}?w=${width}&h=${height}`;
+
+  // Display the resized image URL
   resizedUrl.innerHTML = `Resized image URL: <a href="${url}" target="_blank">${url}</a>`;
+
+  // Open the resized image in a new tab
+  window.open(url, '_blank');
+
+  // Reset the form fields
+  document.querySelector('#width').value = '';
+  document.querySelector('#height').value = '';
 }
 
 // Handle upload form submission

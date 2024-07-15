@@ -19,8 +19,8 @@
 }
 
 .image-gallery img {
-  width: 14.75%;
-  height: auto;
+  width: 145px;
+  height: 145px;
   cursor: pointer;
   transition: 0.3s ease;
 }

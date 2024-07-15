@@ -1,14 +1,12 @@
 Image Processing Web App
 
 This is an image processing web application that allows users to resize and upload images. The app consists of a backend API built with Express.js and a frontend user interface implemented using HTML, CSS, and JavaScript.
-For some reason this doesn't work very well so the only way for it to work correctly is by running "npm start" in terminal and opening the "index.html" 
-file from the file explorer for it to work correctly
 
 1. Features
 
 View a gallery of available images
 Resize images by specifying custom width and height
-Upload new images in JPG or JPEG format
+Upload new images in JPG format
 Backend API for image processing and serving resized images
 Frontend user interface for interacting with the API
 
@@ -29,7 +27,7 @@ Resizing Images
 Uploading Images
 
 - Click on the "Choose File" button in the upload section.
-- Select a JPG or JPEG image file from your local machine.
+- Select a JPG image file from your local machine.
 - Click the "Upload" button to upload the image to the server.
 - The uploaded image will be added to the gallery and available for resizing.
 
