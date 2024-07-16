@@ -7,17 +7,28 @@ import sharp from 'sharp';
 const app = express();
 const PORT = process.env.PORT || 8000;
 
-// Set up multer for file uploads
+// Set up multer for file uploads with file type filtering
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, path.join(__dirname, '../src/images/original'));
     },
     filename: (req, file, cb) => {
-        // Remove the timestamp and keep the original file name
         cb(null, file.originalname);
     },
 });
-const upload = multer({ storage });
+
+const fileFilter = (req: express.Request, file: Express.Multer.File, cb: multer.FileFilterCallback) => {
+    if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg') {
+        cb(null, true);
+    } else {
+        cb(new Error('Only .jpg files are allowed'));
+    }
+};
+
+const upload = multer({
+    storage,
+    fileFilter,
+});
 
 // Middleware to serve static files
 app.use(express.static(path.join(__dirname, '../public')));
@@ -41,12 +52,10 @@ app.get('/images/thumbnails/:imageName', async (req, res) => {
 
     const originalImagePath = path.join(__dirname, '../src/images/original', imageName);
 
-    // Create a unique filename for each resized image
     const thumbnailImageName = `${path.parse(imageName).name}-w${width}-h${height}${path.extname(imageName)}`;
     const thumbnailImagePath = path.join(__dirname, '../src/images/thumbnails', thumbnailImageName);
 
     try {
-        // Check if the resized image already exists
         if (fs.existsSync(thumbnailImagePath)) {
             res.sendFile(thumbnailImagePath);
         } else {
@@ -74,12 +83,20 @@ app.get('/api/images', (req, res) => {
 });
 
 // Handle file upload
-app.post('/upload', upload.single('image'), (req, res) => {
-    if (req.file) {
-        res.status(200).json({ message: 'File uploaded successfully', file: req.file });
-    } else {
-        res.status(400).json({ message: 'Failed to upload file' });
-    }
+app.post('/upload', (req, res) => {
+    upload.single('image')(req, res, (err: any) => {
+        if (err instanceof multer.MulterError) {
+            return res.status(400).json({ message: 'Multer error: Failed to upload file' });
+        } else if (err) {
+            return res.status(400).json({ message: err.message });
+        }
+
+        if (req.file) {
+            res.status(200).json({ message: 'File uploaded successfully', file: req.file });
+        } else {
+            res.status(400).json({ message: 'Failed to upload file' });
+        }
+    });
 });
 
 // Serve the index.html file for any other requests
